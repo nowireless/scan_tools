@@ -47,6 +47,7 @@
 #include <geometry_msgs/PoseWithCovariance.h>
 #include <geometry_msgs/TwistStamped.h>
 #include <nav_msgs/Odometry.h>
+#include <std_msgs/Bool.h>
 #include <tf/transform_datatypes.h>
 #include <tf/transform_listener.h>
 #include <tf/transform_broadcaster.h>
@@ -95,6 +96,7 @@ class LaserScanMatcher
     ros::Publisher  pose_stamped_publisher_;
     ros::Publisher  pose_with_covariance_publisher_;
     ros::Publisher  pose_with_covariance_stamped_publisher_;
+    ros::Publisher  error_in_scan_matching_publisher_;
 
     // **** parameters
 

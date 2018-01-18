@@ -95,6 +95,8 @@ LaserScanMatcher::LaserScanMatcher(ros::NodeHandle nh, ros::NodeHandle nh_privat
       "pose_with_covariance_stamped", 5);
   }
 
+  error_in_scan_matching_publisher_ = nh_private_.advertise<std_msgs::Bool>("error_in_scan_matching", 5);
+
   // *** subscribers
 
   if (use_cloud_input_)
@@ -494,6 +496,11 @@ void LaserScanMatcher::processScan(LDP& curr_ldp_scan, const ros::Time& time)
 
   sm_icp(&input_, &output_);
   tf::Transform corr_ch;
+
+  // Publisher laser scanner matching state
+  std_msgs::Bool bmsg;
+  bmsg.data = !output_.valid;
+  error_in_scan_matching_publisher_.publish(bmsg);
 
   if (output_.valid)
   {
